@@ -109,8 +109,11 @@ def main():
     if len(places) < 850:
         sys.exit(f"Yalnızca {len(places)} ilçe geldi; beklenen yaklaşık 869. Hiçbir dosya yazılmadı.")
 
+    print(f"{len(places)} yer bulundu; vakitler çekiliyor…", flush=True)
     files, failures = {}, []
-    for place in places:
+    for index, place in enumerate(places, 1):
+        if index % 100 == 0:
+            print(f"  {index}/{len(places)}", flush=True)
         try:
             files[place["id"]] = place_file(place, get_json(f"{BASE}/vakitler/{place['id']}"), now)
         except Exception as error:  # Bir ilçenin hatası diğerlerini durdurmasın; uygulama o ilçe için önbelleğini kullanır.
