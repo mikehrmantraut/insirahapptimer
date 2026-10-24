@@ -1,0 +1,36 @@
+# Diyanet'in namaz vakitlerini haftada bir çeker, ikinci bir kaynakla doğrular ve GitHub Pages'te statik JSON olarak yayımlar.
+# Gereken tek ayar: depo ayarlarında Pages kaynağı "GitHub Actions". Şifre ya da gizli değişken yok.
+name: Namaz vakitleri
+
+on:
+  schedule:
+    - cron: "0 1 * * 1" # Her pazartesi 04:00 (Türkiye)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: prayer-times
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Dönüşüm testleri
+        run: python3 -I -m unittest discover -s scripts -p 'test_*.py'
+      - name: Vakitleri çek ve doğrula
+        run: python3 -I scripts/fetch_prayer_times.py site/v1
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - uses: actions/deploy-pages@v4
