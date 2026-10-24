@@ -6,6 +6,8 @@ on:
   schedule:
     - cron: "0 1 * * 1" # Her pazartesi 04:00 (Türkiye)
   workflow_dispatch:
+  push:
+    branches: [main] # Betik ya da görev değişince hemen yeniden yayımlansın.
 
 permissions:
   contents: read
