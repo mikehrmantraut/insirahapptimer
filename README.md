@@ -11,3 +11,9 @@
 Görev her pazartesi 04:00'te (Türkiye) çalışır; Actions sekmesinden elle de çalıştırılabilir.
 
 Yerelde deneme: `python3 -I scripts/fetch_prayer_times.py site/v1` · Testler: `python3 -I -m unittest discover -s scripts -p 'test_*.py'`
+
+## Sayfalar
+
+`pages/` klasöründeki dosyalar her yayında sitenin köküne kopyalanır:
+- Destek: https://mikehrmantraut.github.io/insirahapptimer/
+- Gizlilik politikası: https://mikehrmantraut.github.io/insirahapptimer/gizlilik.html

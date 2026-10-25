@@ -33,6 +33,8 @@ jobs:
         run: python3 -I -m unittest discover -s scripts -p 'test_*.py'
       - name: Vakitleri çek ve doğrula
         run: python3 -I scripts/fetch_prayer_times.py site/v1
+      - name: Gizlilik ve destek sayfaları
+        run: cp pages/* site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
